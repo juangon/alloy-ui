@@ -5,9 +5,9 @@
  * @submodule aui-tree-node
  */
 
-var L = A.Lang,
-	isString = L.isString,
-	isBoolean = L.isBoolean,
+var Lang = A.Lang,
+	isString = Lang.isString,
+	isBoolean = Lang.isBoolean, 
 
 	ALWAYS_SHOW_HITAREA = 'alwaysShowHitArea',
 	BLANK = '',
@@ -832,9 +832,9 @@ A.TreeNode = TreeNode;
 /*
 * TreeNodeIO
 */
-var isFunction = L.isFunction,
-	isObject = L.isObject,
-	isValue = L.isValue,
+var isFunction = Lang.isFunction,
+	isObject = Lang.isObject,
+	isValue = Lang.isValue, 
 
 	CACHE = 'cache',
 	END = 'end',
@@ -842,6 +842,7 @@ var isFunction = L.isFunction,
 	LIMIT = 'limit',
 	LOADED = 'loaded',
 	LOADING = 'loading',
+	MORE_RESULTS_LABEL = 'Load more results',
 	PAGINATOR = 'paginator',
 	START = 'start',
 	TREE_NODE_IO = 'tree-node-io',
@@ -851,7 +852,7 @@ var isFunction = L.isFunction,
 	CSS_TREE_NODE_PAGINATOR = getCN(TREE, NODE, PAGINATOR),
 	CSS_TREE_NODE_IO_LOADING = getCN(TREE, NODE, IO, LOADING),
 
-	TPL_PAGINATOR = '<a class="'+CSS_TREE_NODE_PAGINATOR+'" href="javascript:void(0);">Load more results</a>';
+	TPL_PAGINATOR = '<a class="' + CSS_TREE_NODE_PAGINATOR + '" href="javascript:void(0);">{moreResultsLabel}</a>';
 
 /**
  * A base class for TreeNodeIO, providing:
@@ -958,11 +959,22 @@ var TreeNodeIO = A.Component.create(
 
 			paginator: {
 				setter: function(val) {
+					var instance = this;
+
+					var paginatorNode = A.Node.create(
+					    Lang.sub(
+					      TPL_PAGINATOR,
+					      {
+						moreResultsLabel: val.moreResultsLabel || MORE_RESULTS_LABEL
+					      }
+					    )
+					); 
+
 					return A.merge(
 						{
 							alwaysVisible: false,
 							autoFocus: true,
-							element: A.Node.create(TPL_PAGINATOR),
+							element: paginatorNode,
 							endParam: END,
 							limitParam: LIMIT,
 							start: 0,
