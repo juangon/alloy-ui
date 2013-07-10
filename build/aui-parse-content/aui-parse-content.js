@@ -1,9 +1,9 @@
 AUI.add('aui-parse-content', function(A) {
 /**
- * The ParseContent Utility - Parse the content of a Node so that all of the 
+ * The ParseContent Utility - Parse the content of a Node so that all of the
  * javascript contained in that Node will be executed according to the order
  * that it appears.
- * 
+ *
  * @module aui-parse-content
  */
 
@@ -26,7 +26,12 @@ var L = A.Lang,
 	PARSE_CONTENT = 'ParseContent',
 	QUEUE = 'queue',
 	SCRIPT = 'script',
-	SRC = 'src';
+	SRC = 'src',
+
+	SCRIPT_TYPES = {
+		'': 1,
+		'text/javascript': 1
+	};
 
 /**
  * A base class for ParseContent, providing:
@@ -211,7 +216,11 @@ var ParseContent = A.Component.create(
 					fragment.append(content);
 				}
 
-				output.js = fragment.all(SCRIPT).each(
+				output.js = fragment.all(SCRIPT).filter(function(script) {
+					return SCRIPT_TYPES[script.getAttribute('type').toLowerCase()];
+				});
+
+				output.js.each(
 					function(node, i) {
 						node.remove();
 					}
@@ -276,4 +285,4 @@ var ParseContent = A.Component.create(
 
 A.namespace('Plugin').ParseContent = ParseContent;
 
-}, '@VERSION@' ,{requires:['async-queue','aui-base','plugin'], skinnable:false});
+}, '1.5.0' ,{requires:['async-queue','aui-base','plugin'], skinnable:false});

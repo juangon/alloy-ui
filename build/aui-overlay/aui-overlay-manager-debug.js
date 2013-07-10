@@ -77,9 +77,7 @@ var Lang = A.Lang,
 				zIndexBase: {
 					value: 1000,
 					validator: isNumber,
-					setter: function(value) {
-						return parseInt(value, 10);
-					}
+					setter: Lang.toInt
 				}
 			},
 
@@ -329,4 +327,4 @@ var Lang = A.Lang,
 
 	A.OverlayManager = OverlayManager;
 
-}, '@VERSION@' ,{requires:['aui-base','aui-overlay-base','overlay','plugin']});
+}, '1.5.0' ,{requires:['aui-base','aui-overlay-base','overlay','plugin']});

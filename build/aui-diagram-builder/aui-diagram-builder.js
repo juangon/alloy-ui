@@ -792,7 +792,7 @@ var DiagramBuilderBase = A.Component.create(
 
 A.DiagramBuilderBase = DiagramBuilderBase;
 
-}, '@VERSION@' ,{skinnable:true, requires:['aui-tabs','aui-property-list','collection','dd']});
+}, '1.5.0' ,{skinnable:true, requires:['aui-tabs','aui-property-list','collection','dd']});
 AUI.add('aui-diagram-builder-impl', function(A) {
 var Lang = A.Lang,
 	isArray = Lang.isArray,
@@ -1497,6 +1497,8 @@ var DiagramBuilder = A.Component.create({
 			instance.select(diagramNode);
 
 			instance._onNodeEdit(event);
+
+			event.stopPropagation();
 		},
 
 		_onNodeEdit: function(event) {
@@ -1570,9 +1572,10 @@ var DiagramBuilder = A.Component.create({
 		_renderGraphic: function() {
 			var instance = this;
 			var graphic = instance.get(GRAPHIC);
+			var canvas = instance.get(CANVAS);
 
-			graphic.render(instance.get(CANVAS));
-			A.one(graphic.get(NODE)).on(CLICK, A.bind(instance._onCanvasClick, instance));
+			graphic.render(canvas);
+			A.one(canvas).on(CLICK, A.bind(instance._onCanvasClick, instance));
 		},
 
 		_setConnector: function(val) {
@@ -2810,7 +2813,7 @@ A.DiagramNodeTask = A.Component.create({
 
 A.DiagramBuilder.types[TASK] = A.DiagramNodeTask;
 
-}, '@VERSION@' ,{skinnable:true, requires:['aui-data-set','aui-diagram-builder-base','aui-diagram-builder-connector','overlay']});
+}, '1.5.0' ,{skinnable:true, requires:['aui-data-set','aui-diagram-builder-base','aui-diagram-builder-connector','overlay']});
 AUI.add('aui-diagram-builder-connector', function(A) {
 var Lang = A.Lang,
 	isArray = Lang.isArray,
@@ -3449,8 +3452,8 @@ A.Connector = A.Base.create('line', A.Base, [], {
 	}
 });
 
-}, '@VERSION@' ,{skinnable:true, requires:['aui-base','aui-template','arraylist-add','arraylist-filter','json','graphics','dd']});
+}, '1.5.0' ,{skinnable:true, requires:['aui-base','aui-template','arraylist-add','arraylist-filter','json','graphics','dd']});
 
 
-AUI.add('aui-diagram-builder', function(A){}, '@VERSION@' ,{skinnable:true, use:['aui-diagram-builder-base','aui-diagram-builder-impl']});
+AUI.add('aui-diagram-builder', function(A){}, '1.5.0' ,{use:['aui-diagram-builder-base','aui-diagram-builder-impl'], skinnable:true});
 

@@ -525,8 +525,12 @@ A.mix(NODE_PROTO, {
 		hoverOptions.overTask = A.debounce(instance._hoverOverTaskFn, null, instance);
 		hoverOptions.outTask = A.debounce(instance._hoverOutTaskFn, null, instance);
 
-		instance.on(hoverOptions.overEventType, instance._hoverOverHandler, instance);
-		instance.on(hoverOptions.outEventType, instance._hoverOutHandler, instance);
+		return new A.EventHandle(
+			[
+				instance.on(hoverOptions.overEventType, instance._hoverOverHandler, instance),
+				instance.on(hoverOptions.outEventType, instance._hoverOutHandler, instance)
+			]
+		);
 	},
 
 	/**
@@ -1623,7 +1627,7 @@ AArray.each(
 	}
 );
 
-}, '@VERSION@' ,{requires:['aui-base-lang','aui-classnamemanager','node']});
+}, '1.5.0' ,{requires:['array-extras','aui-base-lang','aui-classnamemanager','node']});
 AUI.add('aui-node-html5', function(A) {
 /**
  * aui-node-html5 provides support for HTML shiv natively on the Alloy dom
@@ -1714,7 +1718,7 @@ if (A.UA.ie) {
 	A.Do.before(HTML5._doBeforeCreate, A.DOM, '_create', A.DOM);
 }
 
-}, '@VERSION@' ,{requires:['collection','aui-base']});
+}, '1.5.0' ,{requires:['collection','aui-base']});
 AUI.add('aui-node-html5-print', function(A) {
 var CONFIG = A.config,
 	DOC = CONFIG.doc,
@@ -2122,8 +2126,8 @@ A.namespace('HTML5').PrintFix = PrintFix;
 
 PrintFix();
 
-}, '@VERSION@' ,{requires:['aui-node-html5']});
+}, '1.5.0' ,{requires:['aui-node-html5']});
 
 
-AUI.add('aui-node', function(A){}, '@VERSION@' ,{skinnable:false, use:['aui-node-base','aui-node-html5','aui-node-html5-print']});
+AUI.add('aui-node', function(A){}, '1.5.0' ,{skinnable:false, use:['aui-node-base','aui-node-html5','aui-node-html5-print']});
 

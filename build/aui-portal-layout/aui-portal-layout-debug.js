@@ -12,6 +12,8 @@ var Lang = A.Lang,
 	isString = Lang.isString,
 	isValue = Lang.isValue,
 
+	toInt = Lang.toInt,
+
 	ceil = Math.ceil,
 
 	DDM = A.DD.DDM,
@@ -75,7 +77,7 @@ var Lang = A.Lang,
 	},
 
 	getNumStyle = function(elem, styleName) {
-		return parseInt(elem.getStyle(styleName), 10) || 0;
+		return toInt(elem.getStyle(styleName));
 	},
 
 	getCN = A.getClassName,
@@ -284,6 +286,7 @@ var PortalLayout = A.Component.create(
 							A.merge(
 								{
 									bubbleTargets: instance,
+									groups: instance.get(GROUPS),
 									node: node
 								},
 								config
@@ -721,4 +724,4 @@ var PortalLayout = A.Component.create(
 
 A.PortalLayout = PortalLayout;
 
-}, '@VERSION@' ,{requires:['aui-base','dd-drag','dd-delegate','dd-drop','dd-proxy'], skinnable:true});
+}, '1.5.0' ,{skinnable:true, requires:['aui-base','dd-drag','dd-delegate','dd-drop','dd-proxy']});

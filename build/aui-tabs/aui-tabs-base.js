@@ -406,6 +406,8 @@ var TabView = A.Component.create(
 
 				tab.render(listNode);
 
+				tab.set('tabView', instance);
+
 				if (before) {
 					listNode.insert(tab.get(BOUNDING_BOX), before.get(BOUNDING_BOX));
 				}
@@ -424,8 +426,6 @@ var TabView = A.Component.create(
 				if (tab.get('active')) {
 					instance.set('activeTab', tab);
 				}
-
-				tab.set('tabView', instance);
 			},
 
 			deselectTab: function(index){
@@ -614,4 +614,4 @@ var TabView = A.Component.create(
 
 A.TabView = TabView;
 
-}, '@VERSION@' ,{skinnable:true, requires:['aui-component','aui-state-interaction']});
+}, '1.5.0' ,{skinnable:true, requires:['aui-component','aui-state-interaction']});

@@ -898,7 +898,7 @@ var AutoComplete = A.Component.create(
 				}
 
 				instance.set('dataSource', dataSource);
-				instance.set('dataSource', dataSourceType);
+				instance.set('dataSourceType', dataSourceType);
 
 				instance.dataSource = dataSource;
 
@@ -2053,4 +2053,4 @@ var AutoComplete = A.Component.create(
 
 A.AutoComplete = AutoComplete;
 
-}, '@VERSION@' ,{skinnable:true, requires:['aui-base','aui-overlay-base','datasource','dataschema','aui-form-combobox']});
+}, '1.5.0' ,{skinnable:true, requires:['aui-base','aui-overlay-base','datasource','dataschema','aui-form-combobox']});

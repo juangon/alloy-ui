@@ -702,6 +702,8 @@ var DiagramBuilder = A.Component.create({
 			instance.select(diagramNode);
 
 			instance._onNodeEdit(event);
+
+			event.stopPropagation();
 		},
 
 		_onNodeEdit: function(event) {
@@ -775,9 +777,10 @@ var DiagramBuilder = A.Component.create({
 		_renderGraphic: function() {
 			var instance = this;
 			var graphic = instance.get(GRAPHIC);
+			var canvas = instance.get(CANVAS);
 
-			graphic.render(instance.get(CANVAS));
-			A.one(graphic.get(NODE)).on(CLICK, A.bind(instance._onCanvasClick, instance));
+			graphic.render(canvas);
+			A.one(canvas).on(CLICK, A.bind(instance._onCanvasClick, instance));
 		},
 
 		_setConnector: function(val) {
@@ -2015,4 +2018,4 @@ A.DiagramNodeTask = A.Component.create({
 
 A.DiagramBuilder.types[TASK] = A.DiagramNodeTask;
 
-}, '@VERSION@' ,{skinnable:true, requires:['aui-data-set','aui-diagram-builder-base','aui-diagram-builder-connector','overlay']});
+}, '1.5.0' ,{skinnable:true, requires:['aui-data-set','aui-diagram-builder-base','aui-diagram-builder-connector','overlay']});
