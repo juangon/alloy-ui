@@ -202,6 +202,14 @@ var AudioImpl = A.Component.create({
             instance._renderSwfTask = A.debounce(instance._renderSwf, 1, instance);
 
             instance._renderAudio(!instance.get(OGG_URL));
+
+            instance._audio._node.addEventListener('play', function (event) {
+                instance._firePlayEvent(event);
+            }, false);
+
+            instance._audio._node.addEventListener('pause', function (event) {
+                instance._firePauseEvent(event);
+            }, false);
         },
 
         /**
@@ -217,6 +225,14 @@ var AudioImpl = A.Component.create({
                 'audioReady', {
                     fireOnce: true
                 }
+            );
+
+            instance.publish(
+                'play'
+            );
+
+            instance.publish(
+                'pause'
             );
         },
 
@@ -273,6 +289,36 @@ var AudioImpl = A.Component.create({
             sourceNode.attr('type', type);
 
             return sourceNode;
+        },
+
+        /**
+         * Fire event when audio pause.
+         *
+         * @method _firePauseEvent
+         * @param event
+         * @protected
+         */
+        _firePauseEvent: function(event) {
+            var instance = this;
+
+            instance.fire('pause', {
+                cropType: event.type
+            });
+        },
+
+        /**
+         * Fire event when audio play.
+         *
+         * @method _firePlayEvent
+         * @param event
+         * @protected
+         */
+        _firePlayEvent: function(event) {
+            var instance = this;
+
+            instance.fire('play', {
+                cropType: event.type
+            });
         },
 
         /**

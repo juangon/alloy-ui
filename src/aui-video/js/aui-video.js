@@ -211,6 +211,13 @@ var Video = A.Component.create({
             instance._renderSwfTask = A.debounce(instance._renderSwf, 1, instance);
 
             instance._renderVideo(!instance.get(OGV_URL));
+
+            instance._video.on('play', function (event) {
+                instance._firePlayEvent(event);
+            });
+            instance._video.on('pause', function (event) {
+                instance._firePauseEvent(event);
+            });
         },
 
         /**
@@ -226,6 +233,14 @@ var Video = A.Component.create({
                 VIDEO_READY, {
                     fireOnce: true
                 }
+            );
+
+            instance.publish(
+                'play'
+            );
+
+            instance.publish(
+                'pause'
             );
         },
 
@@ -306,6 +321,36 @@ var Video = A.Component.create({
                 bbStyle.removeAttribute('width');
                 bbStyle.removeAttribute('height');
             }
+	},
+
+	/**
+         * Fire event when video pause.
+         *
+         * @method _firePauseEvent
+         * @param event
+         * @protected
+         */
+        _firePauseEvent: function(event) {
+            var instance = this;
+
+            instance.fire('pause', {
+                cropType: event.type
+            });
+        },
+
+        /**
+         * Fire event when video plays.
+         *
+         * @method _firePlayEvent
+         * @param event
+         * @protected
+         */
+        _firePlayEvent: function(event) {
+            var instance = this;
+
+            instance.fire('play', {
+                cropType: event.type
+            });
         },
 
         /**
