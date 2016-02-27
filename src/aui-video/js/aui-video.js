@@ -39,6 +39,8 @@ var Lang = A.Lang,
     TPL_VIDEO = '<video id="{id}" controls="controls" class="' + CSS_VIDEO_NODE + '" {height} {width}></video>',
     TPL_VIDEO_FALLBACK = '<div class="' + CSS_VIDEO_NODE + '"></div>';
 
+    WIN = A.getWin();
+
 /**
  * A base class for Video.
  *
@@ -70,7 +72,20 @@ var Video = A.Component.create({
     ATTRS: {
 
         /**
-         * URL used by Video to play.
+         * The ratio used to resize the video for various screen sizes.
+         *
+         * @attribute aspectRatio
+         * @type {Number}
+         */
+        aspectRatio: {
+            valueFn: function() {
+                var instance = this;
+
+                return instance.get('height') / instance.get('width');
+            }
+        },
+        /**
+         * The required Flash version for the swf player
          *
          * @attribute url
          * @default ''
@@ -272,6 +287,28 @@ var Video = A.Component.create({
         },
 
         /**
+         * Removes the inline styling for the boundingBox.
+         *
+         * @method _removeBoundingBoxDimensions
+         * @protected
+         */
+        _removeBoundingBoxDimensions: function() {
+            var instance = this;
+
+            var bb = instance.get('boundingBox');
+
+            var bbStyle = bb._node.style;
+
+            if (bbStyle.removeProperty) {
+                bbStyle.removeProperty('width');
+                bbStyle.removeProperty('height');
+            } else {
+                bbStyle.removeAttribute('width');
+                bbStyle.removeAttribute('height');
+            }
+        },
+
+        /**
          * Render SWF in DOM.
          *
          * @method _renderSwf
@@ -396,7 +433,32 @@ var Video = A.Component.create({
         },
 
         /**
-         * Set the <code>fixedAttributes</code> on the UI.
+         * Resizes the video at various window sizes.
+         *
+         * @method _resizeVideo
+         * @protected
+         */
+        _resizeVideo: function () {
+            var instance = this;
+
+            var video = instance._video;
+            var videoInitialWidth = instance.get('width');
+            var videoInitialHeight = instance.get('height');
+            var videoParentWidth = video.ancestor('.video-content').width();
+
+            if (WIN.width() < videoInitialWidth) {
+                var newWidth = videoParentWidth;
+
+                video.width(newWidth);
+                video.height(newWidth * instance.get('aspectRatio'));
+            } else {
+                video.width(videoInitialWidth);
+                video.height(videoInitialHeight);
+            }
+        },
+
+        /**
+         * Set the `fixedAttributes` on the UI.
          *
          * @method _uiSetFixedAttributes
          * @param val
