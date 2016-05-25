@@ -487,7 +487,7 @@ var Video = A.Component.create({
 
             if (currentTargetHeight < height) {
                 updatedHeight = currentTargetHeight;
-                updatedWidth = currentTargetHeight * aspectRatio;
+                updatedWidth = currentTargetHeight / aspectRatio;
             }
 
             currentTargetWidth = winNode.get('innerWidth');
