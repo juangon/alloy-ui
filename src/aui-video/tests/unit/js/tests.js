@@ -59,6 +59,9 @@ YUI.add('module-tests', function(Y) {
                 Y.Assert.isTrue(prevVideoPlayerWidth > videoPlayer.width());
                 Y.Assert.isTrue(prevVideoPlayerHeight > videoPlayer.height());
 
+                Y.Assert.isTrue(contentBox.width() >= videoPlayer.width(), 'video width exceeds contentBox');
+                Y.Assert.isTrue(contentBox.height() >= videoPlayer.height(), 'video height exceeds contentBox');
+
                 prevVideoPlayerHeight = videoPlayer.height();
                 prevVideoPlayerWidth = videoPlayer.width();
 
@@ -67,6 +70,9 @@ YUI.add('module-tests', function(Y) {
             this.wait(function() {
                     Y.Assert.isTrue(prevVideoPlayerWidth < videoPlayer.width(), videoPlayer.width());
                     Y.Assert.isTrue(prevVideoPlayerHeight < videoPlayer.height());
+
+                    Y.Assert.isTrue(contentBox.width() >= videoPlayer.width(), 'video width exceeds contentBox');
+                    Y.Assert.isTrue(contentBox.height() >= videoPlayer.height(), 'video height exceeds contentBox');
                 }, Y.config.windowResizeDelay || 100);
             }, Y.config.windowResizeDelay || 100);
         },
@@ -90,6 +96,9 @@ YUI.add('module-tests', function(Y) {
                 Y.Assert.isTrue(prevVideoPlayerWidth > videoPlayer.width(), videoPlayer.width());
                 Y.Assert.isTrue(prevVideoPlayerHeight > videoPlayer.height());
 
+                Y.Assert.isTrue(contentBox.width() >= videoPlayer.width(), 'video width exceeds contentBox');
+                Y.Assert.isTrue(contentBox.height() >= videoPlayer.height(), 'video height exceeds contentBox');
+
                 prevVideoPlayerHeight = videoPlayer.height();
                 prevVideoPlayerWidth = videoPlayer.width();
 
@@ -98,6 +107,9 @@ YUI.add('module-tests', function(Y) {
             this.wait(function() {
                     Y.Assert.isTrue(prevVideoPlayerWidth < videoPlayer.width(), videoPlayer.width());
                     Y.Assert.isTrue(prevVideoPlayerHeight < videoPlayer.height());
+
+                    Y.Assert.isTrue(contentBox.width() >= videoPlayer.width(), 'video width exceeds contentBox');
+                    Y.Assert.isTrue(contentBox.height() >= videoPlayer.height(), 'video height exceeds contentBox');
                 }, Y.config.windowResizeDelay || 100);
             }, Y.config.windowResizeDelay || 100);
         }
